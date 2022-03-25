@@ -112,7 +112,7 @@ while($class=mysqli_fetch_array($ClassSql_Result)){
 ?>
               </Select>  
             </td>
-            <td><input type="button" value="添加" onclick="add_teacher()"></td>
+            <td><input type="button" value="添加" onclick="add_teacher()" style="width:100%;"></td>
           </tr>
         </table>
       </form>
@@ -123,8 +123,6 @@ while($class=mysqli_fetch_array($ClassSql_Result)){
     if($_POST["user_id"]){
       $user_id = $_POST["user_id"];
       $operate = $_POST["operate"];
-      echo $operate;
-      echo $user_id;
       if($operate == "delete"){
         $deleteSql = "DELETE FROM teacher WHERE teacher_id=".(string)$user_id;
         $SqlResult = mysqli_query($serverLink, $deleteSql);
@@ -157,9 +155,7 @@ while($class=mysqli_fetch_array($ClassSql_Result)){
       $mo_teacher_no = $_POST["mo_teacher_no"];
       $mo_teacher_name = $_POST["mo_teacher_name"];
       $mo_class_id = $_POST["mo_class_id"];
-      echo $mo_class_id;
       $update_sql = "UPDATE teacher set teacher_no=".$mo_teacher_no.", teacher_name='".$mo_teacher_name."',class_id=".$mo_class_id." WHERE teacher_id=".$mo_teacher_id;
-      echo $update_sql;
       $update_sql_result = mysqli_query($serverLink, $update_sql) or die("<script>alert('执行修改命令失败，请检查');document.location.href='/student/teacher.php'</script>");
       echo "<script>alert('修改成功！')</script>";
       echo "<script>document.location.href='/student/teacher.php'</script>";
