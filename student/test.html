@@ -2,12 +2,23 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Test</title>
+    <title>login</title>
+    <script>
+      document.getElementsByName
+    </script>
   </head>
   <body>
-    <div class="add_teacher">
-      <form action="teacher_add.php">
-        
+    <div class="users_login">
+      <form name="login_form" action="/users/login.php" method="post">
+        <div class="inputBox">
+          <input type="text" name="username" required="required">
+          <label>Username</label>
+        </div>
+        <div class="inputBox">
+          <input type="password" name="password" required="required">
+          <label>password</label>
+        </div>
+        <input type="submit" name="submit" value="Submit">
       </form>
     </div>
   </body>
