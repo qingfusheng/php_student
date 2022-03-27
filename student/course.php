@@ -42,18 +42,65 @@
         }
       }
     </script>
+    <style type="text/css">
+      table{
+        margin-top:170px;
+        text-align:center;
+      }
+      th{
+        width:400px;
+        height:40px;
+        text-align:center;
+      }
+      td{
+        height:30px;
+        text-align:center;
+      }
+      .operate_button{
+        width:100px;
+      }
+      .entry_th_id{
+        display: none;
+      }
+      .tr_modify{
+        display:none;
+      }
+      .add_button{
+        width:100%;
+      }
+      ._input{
+        width:95%;
+        height:80%;
+        border:none;
+      }
+      ._button{
+        height:90%;
+      }
+      .td_left_button{
+        width:48%;
+        float:left;
+      }
+      .td_right_button{
+        width:48%;
+        float:right;
+      }
+      Select{
+        width:95%;
+        height:90%;
+      }
+    </style>
   </head>
   <body>
     <!--The Content Table-->
     <div class="table">
       <form name="my_form" action="./course.php" method="post">
         <input type="hidden" name="delete_from_course_id" value="">
-      <table border="1" style="text-align:center;">
+      <table border="10" align="center">
         <tr class="tr_header">
-          <th style="display:none">课程ID</th>
+          <th class="entry_th_id">课程ID</th>
           <th>课程号</th>
           <th>课程名</th>
-          <th>操作</th>
+          <th class="operate_button">操作</th>
         </tr>
         <!--This is the Content of the table-->
 <?php
@@ -62,29 +109,29 @@
     $Select_Course_Result = mysqli_query($serverLink, $Select_Course_SQL);
     while($course = mysqli_fetch_array($Select_Course_Result)){
       echo "<tr class='tr_content'>";
-    	echo "<td style='display:none'>".$course['course_id']."</td>";
+    	echo "<td class='entry_th_id'>".$course['course_id']."</td>";
     	echo "<td>".$course['course_no']."</td>";
     	echo "<td>".$course['course_name']."</td>";
-      echo "<td><input type='button' class='delete_button' value='删除' onclick='delete_course_entry(this.parentElement.parentElement)'>";
-      echo "<input type='button' class='modify_button' value='修改' onclick='modify_course_entry(this.parentElement.parentElement)'></td>";
+      echo "<td class='operate_button'><input type='button' class='delete_button _button td_left_button' value='删除' onclick='delete_course_entry(this.parentElement.parentElement)'>";
+      echo "<input type='button' class='modify_button _button td_right_button' value='修改' onclick='modify_course_entry(this.parentElement.parentElement)'></td>";
       echo "</tr>";
     }
 ?>
         <!--This is the Add_Part tr of the table-->
         <tr class="tr_content_add">
-          <td style="display:none"><input type="hidden" name="add_course_id"></td>
-          <td><input type="text" name="add_course_no" value=""></td>
-          <td><input type="text" name="add_course_name" value=""></td>
-          <td><input type="button" class="add_course_button" value="添加" onclick="new_course_entry()" style="width:100%;"></td>
+          <td class='entry_th_id'><input type="hidden" name="add_course_id"></td>
+          <td><input class="_input" type="text" name="add_course_no" value=""></td>
+          <td><input class="_input" type="text" name="add_course_name" value=""></td>
+          <td class='operate_button'><input class="add_button _button" type="button" class="add_course_button" value="添加" onclick="new_course_entry()" style="width:100%;"></td>
         </tr>
         <!--This is the Modify_Part tr of the table-->
-        <tr class="tr_content_modify" style="display:none;">
-          <td style="display:none"><input type="hidden" name="modify_course_id"></td>
-          <td><input type="text" name="modify_course_no" value=""></td>
-          <td><input type="text" name="modify_course_name" value=""></td>
-          <td>
-            <input type="button" class="cancel_course_button" value="取消" onclick="cancel_course_entry_input()">
-            <input type="button" class="confirm_course_button" value="确认" onclick="confirm_course_entry_input()">;
+        <tr class="tr_content_modify tr_modify">
+          <td class='entry_th_id'<input type="hidden" name="modify_course_id"></td>
+          <td><input class="_input" type="text" name="modify_course_no" value=""></td>
+          <td><input class="_input" type="text" name="modify_course_name" value=""></td>
+          <td class='operate_button'>
+            <input type="button" class="cancel_course_button _button td_left_button" value="取消" onclick="cancel_course_entry_input()">
+            <input type="button" class="confirm_course_button _button td_right_button" value="确认" onclick="confirm_course_entry_input()">;
           </td>
         </tr>
       </table>

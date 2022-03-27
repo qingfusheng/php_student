@@ -6,8 +6,7 @@
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script type="text/javascript">
         function delete_teacher(teacher){
-          var msg="确认删除？";
-          if(!confirm(msg)==true){
+          if(!confirm("确认删除？")==true){
             return;
           }
           _form.user_id.value = teacher;
@@ -26,10 +25,9 @@
           ths_modify[0].getElementsByTagName("input")[0].value = ths_old[0].textContent;
           ths_modify[1].getElementsByTagName("input")[0].value = ths_old[1].textContent;
           ths_modify[2].getElementsByTagName("input")[0].value = ths_old[2].textContent;
-          
         }
         function add_teacher(){
-            console.log(document.getElementById("add_new_entry").value);
+          console.log(document.getElementById("add_new_entry").value);
           _form.the_class_id.value = document.getElementById("add_new_entry").value;
           _form.submit();
         }
@@ -41,19 +39,66 @@
           _form.submit();
         }
     </script>
+    <style type="text/css">
+      table{
+        margin-top:170px;
+        text-align:center;
+      }
+      th{
+        width:400px;
+        height:40px;
+        text-align:center;
+      }
+      td{
+        height:30px;
+        text-align:center;
+      }
+      .operate_button{
+        width:100px;
+      }
+      .entry_th_id{
+        display: none;
+      }
+      .tr_modify{
+        display:none;
+      }
+      .add_button{
+        width:100%;
+      }
+      ._input{
+        width:95%;
+        height:80%;
+        border:none;
+      }
+      ._button{
+        height:90%;
+      }
+      .td_left_button{
+        width:48%;
+        float:left;
+      }
+      .td_right_button{
+        width:48%;
+        float:right;
+      }
+      Select{
+        width:95%;
+        height:90%;
+      }
+    </style>
   </head>
   <body>
     <div class="table">
       <form name="_form" aciton="./teacher.php" method="post">
         <input type="hidden" name="user_id"/>
         <input type="hidden" name="operate"/>
-        <table border="1" style="text-align:center;">
+        <table border="10" align="center">
           <tr class="header">
-            <th style="display:none">教师ID</th>
+            <th class="entry_th_id">教师ID</th>
             <th>教师工号</th>
             <th>教师名称</th>
             <th>管理班级</th>
-            <th>操作</th>
+            <th class="operate_button">操作</th>
           </tr>
 <?php
     include "./database/database.php";
@@ -61,20 +106,20 @@
     $Select_Teacher_Result = mysqli_query($serverLink, $Select_Teacher_SQL);
     while($teacher = mysqli_fetch_array($Select_Teacher_Result)){
         echo "<tr class='tr_teacher'>";
-    	echo "<td style='display:none'>".$teacher['teacher_id']."</td>";
+    	echo "<td class='entry_th_id'>".$teacher['teacher_id']."</td>";
     	echo "<td>".$teacher['teacher_no']."</td>";
     	echo "<td>".$teacher['teacher_name']."</td>";
       $teacher_class_sql = "select class_name from classes where class_id=".$teacher["class_id"];
       $class_name_result = mysqli_query($serverLink, $teacher_class_sql);
       $class_name = mysqli_fetch_array($class_name_result)["class_name"];
-    	echo "<td>".$class_name."</td>";
-    	echo "<td><input type='button' value='删除' onclick=\"delete_teacher('".$teacher["teacher_id"]."')\">";
-    	echo "<input type='button' class='modified_input' value='修改' onclick=\"modify_teacher(this.parentElement.parentElement)\"></td>";
+    	echo "<td class='operate_button'>".$class_name."</td>";
+    	echo "<td><input class='td_left_button _button' type='button' value='删除' onclick=\"delete_teacher('".$teacher["teacher_id"]."')\">";
+    	echo "<input type='button' class='td_right_button modified_input _button' value='修改' onclick=\"modify_teacher(this.parentElement.parentElement)\"></td>";
     	echo "</tr>";
     }
 ?>
-          <tr class="tr_teacher_modify" style="display:none">
-            <td style='display:none'><input type="hidden" value="" name="mo_teacher_id"></td>
+          <tr class="tr_teacher_modify tr_modify">
+            <td class="entry_th_id"><input type="hidden" value="" name="mo_teacher_id"></td>
             <td><input type="text" value="" name="mo_teacher_no"></td>
             <td><input type="text" value="" name="mo_teacher_name"></td>
             <td>
@@ -90,15 +135,15 @@
                 ?>
               </Select>  
             </td>
-            <td>
-              <input type="button" id="modified_cancel" value="取消" onclick="tr_modified_cancel()">
-              <input type="button" id="modified_confirm" value="确认" onclick="tr_modified_confirm()">
+            <td class="operate_button">
+              <input class="td_left_button _button" type="button" id="modified_cancel" value="取消" onclick="tr_modified_cancel()">
+              <input class='td_right_button _button' type="button" id="modified_confirm" value="确认" onclick="tr_modified_confirm()">
             </td>
           </tr>
           <tr class="tr_teacher_add">
-            <td style='display:none'></td>
-            <td><input type="text" name="the_teacher_no"></td>
-            <td><input type="text" name="the_teacher_name"></td>
+            <td class="entry_th_id"></td>
+            <td><input type="text" name="the_teacher_no" class="_input"></td>
+            <td><input type="text" name="the_teacher_name" class="_input"></td>
             <td>
               <input name="the_class_id" type="hidden">
               <Select id="add_new_entry">
@@ -112,7 +157,9 @@ while($class=mysqli_fetch_array($ClassSql_Result)){
 ?>
               </Select>  
             </td>
-            <td><input type="button" value="添加" onclick="add_teacher()" style="width:100%;"></td>
+            <td class="operate_button">
+              <input class="half_width_button add_button _button" type="button" value="添加" onclick="add_teacher()">
+            </td>
           </tr>
         </table>
       </form>

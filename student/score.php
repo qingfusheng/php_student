@@ -41,19 +41,66 @@
           _form.submit();
         }
     </script>
+        <style type="text/css">
+      table{
+        margin-top:170px;
+        text-align:center;
+      }
+      th{
+        width:400px;
+        height:40px;
+        text-align:center;
+      }
+      td{
+        height:30px;
+        text-align:center;
+      }
+      .operate_button{
+        width:100px;
+      }
+      .entry_th_id{
+        display: none;
+      }
+      .tr_modify{
+        display:none;
+      }
+      .add_button{
+        width:100%;
+      }
+      ._input{
+        width:95%;
+        height:80%;
+        border:none;
+      }
+      ._button{
+        height:90%;
+      }
+      .td_left_button{
+        width:48%;
+        float:left;
+      }
+      .td_right_button{
+        width:48%;
+        float:right;
+      }
+      Select{
+        width:95%;
+        height:90%;
+      }
+    </style>
   </head>
   <body>
     <div class="table">
       <form name="_form" aciton="./score.php" method="post">
         <input type="hidden" name="user_id"/>
         <input type="hidden" name="operate"/>
-        <table border="1" style="text-align:center;">
+        <table border="10" align="center">
           <tr class="header">
-            <th style="display:none">成绩ID</th>
+            <th class="entry_th_id">成绩ID</th>
             <th>学生学号</th>
             <th>课程の号</th>
             <th>获得分数</th>
-            <th>操作</th>
+            <th class="operate_button">操作</th>
           </tr>
 <?php
     include "./database/database.php";
@@ -71,27 +118,27 @@
       $select_course_name = mysqli_fetch_array($select_course_name_result)["course_name"];
     	echo "<td>".$select_course_name."</td>";
     	echo "<td>".$score["grade"]."</td>";
-    	echo "<td><input type='button' value='删除' onclick=\"delete_score('".$score["score_id"]."')\">";
-    	echo "<input type='button' class='modified_input' value='修改' onclick=\"modify_score(this.parentElement.parentElement)\"></td>";
+    	echo "<td><input class='operate_button _button td_left_button' type='button' value='删除' onclick=\"delete_score('".$score["score_id"]."')\">";
+    	echo "<input class='operate_button _button td_right_button' type='button' class='modified_input' value='修改' onclick=\"modify_score(this.parentElement.parentElement)\"></td>";
     	echo "</tr>";
     }
 ?>
-          <tr class="tr_score_modify" style="display:none;">
-            <td style='display:none'>
-              <input type="hidden" value="" name="mo_score_id">
+          <tr class="tr_score_modify tr_modify" class="entry_th_id">
+            <td class="tr_modify">
+              <input class="_input" type="hidden" value="" name="mo_score_id">
             </td>
             <td></td>
             <td></td>
             <td>
-              <input name="mo_grade" type="text" value="">
+              <input class="_input" name="mo_grade" type="text" value="">
             </td>
             <td>
-              <input type="button" id="modified_cancel" value="取消" onclick="tr_modified_cancel()">
-              <input type="button" id="modified_confirm" value="确认" onclick="tr_modified_confirm()">
+              <input class="operate_button _button td_left_button" type="button" id="modified_cancel" value="取消" onclick="tr_modified_cancel()">
+              <input class="operate_button _button td_right_button" type="button" id="modified_confirm" value="确认" onclick="tr_modified_confirm()">
             </td>
           </tr>
           <tr class="tr_score_add">
-            <td style='display:none'></td>
+            <td class="entry_th_id"></td>
             <td>
               <input type="hidden" name="add_score_student">
               <Select id="add_new_student_select">
@@ -118,9 +165,9 @@ while($course=mysqli_fetch_array($course_sql_result)){
               </Select>
             </td>
             <td>
-              <input name="add_score_grade" type="text" value="">
+              <input class="_input" name="add_score_grade" type="text" value="">
             </td>
-            <td><input type="button" value="添加" onclick="add_score()" style="width:100%;"></td>
+            <td class="operate_button"><input class="add_button _button" type="button" value="添加" onclick="add_score()" style="width:100%;"></td>
           </tr>
         </table>
       </form>
