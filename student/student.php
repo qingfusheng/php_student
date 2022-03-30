@@ -103,7 +103,7 @@
             <th class="operate_button">操作</th>
           </tr>
 <?php
-    include "./database/database.php";
+    include_once "./database/database.php";
     $Select_Student_SQL = "select * from student";
     $Select_Student_Result = mysqli_query($serverLink, $Select_Student_SQL);
     while($student = mysqli_fetch_array($Select_Student_Result)){

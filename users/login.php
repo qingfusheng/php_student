@@ -87,12 +87,58 @@
         font-family: "宋体";
         font-size:40px;
     }
+	.login_or_register{
+		height:100px;
+	}
+	.login_register>input{
+		outline:none;
+
+	}
+	.login_button{
+		float:left;
+		width:50%;
+		height:50%;
+	}
+	.register_button{
+		float:right;
+		width:50%;
+		height:50%;
+	}
+	
     </style>
+	<script type="text/javascript">
+		function switch_to(in_type){
+			switch(in_type){
+				case "login":
+				register_form.style.display="none";
+				login_form.style.display="block";
+				document.getElementById("register_username").value="";
+				document.getElementById("register_password").value="";
+				document.getElementsByTagName("h2")[0].textContent="登录";
+				break;
+				case "register":
+				login_form.style.display="none";
+				register_form.style.display="block";
+				document.getElementById("username_input").value = "";
+				document.getElementById("password_input").value = "";
+				document.getElementsByTagName("h2")[0].textContent="注册";
+				break;
+				default:break;
+			}
+		}
+	</script>
     
   </head>
   <body>
-    <div class="login_header"><h1>Student-Course Management System</h1></div>
+    <div class="login_header">
+		<h1>Student-Course Management System</h1>
+		<h2 style="color:white;">登录</h2>
+	</div>
     <div class="users_login">
+		<div class="login_or_register">
+			<input type="button" class='login_button' value="登录" onclick="switch_to('login')">
+			<input type="button" class="register_button" value="注册" onclick="switch_to('register')">
+		</div>
       <form name="login_form" action="/users/login.php" method="post">
         <div class="inputBox">
           <input id="username_input" type="text" name="username" required="required">
@@ -102,12 +148,24 @@
           <input id="password_input" type="password" name="password" required="required">
           <label>password</label>
         </div>
+		<script type="text/javascript">
+        	/*document.getElementById("username_input").value = "test";
+        	document.getElementById("password_input").value = "123456";*/
+    	</script>
         <input type="submit" name="submit" value="Submit">
       </form>
-      <script type="text/javascript">
-        document.getElementsByTagName("input")[0].value = "test";
-        document.getElementsByTagName("input")[1].value = "123456";
-    </script>
+	  <form name="register_form" action="/users/login.php" method="post"style="display:none;">
+        <div class="inputBox">
+          <input id="register_username" type="text" name="register_username" required="required">
+          <label>Username</label>
+        </div>
+        <div class="inputBox">
+          <input id="register_password" type="password" name="register_password" required="required">
+          <label>password</label>
+        </div>
+        <input type="submit" name="submit" value="Submit">
+      </form>
+      
     </div>
   </body>
 </html>
@@ -128,4 +186,22 @@
             echo "<script>document.location.href='/users/login.php';</script>";
         }
     }
+?>
+<?php
+if($_POST["register_username"]){
+    
+    $username = $_POST["register_username"];
+    $password = $_POST["register_password"];
+    echo "<script>alert('$password')</script>";
+    $select_username_sql = "SELECT username from users WHERE username='$username'";
+    $select_username_sql_result = mysqli_query($serverLink, $select_username_sql) or die("<script>alert('第一次用户插入失败');</script>");
+    if(mysqli_num_rows($select_username_sql_result)==0){
+        $insert_user_sql = "INSERT INTO users VALUES(null, '$username', '$password')";
+        $insert_sql_result = mysqli_query($serverLink, $insert_user_sql) or die("<script>alert('第二处添加新用户失败');</script>");
+        echo "<script>alert('添加新用户成功，请使用该账户登录');document.location.href='/users/login.php';</script>";
+    }else{
+        echo "<script>alert('该用户名已被注册')</script>";
+        echo "<script>document.location.href='/users/register.php';</script>";
+    }
+}
 ?>

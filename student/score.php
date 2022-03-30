@@ -103,7 +103,7 @@
             <th class="operate_button">操作</th>
           </tr>
 <?php
-    include "./database/database.php";
+    include_once "./database/database.php";
     $Select_Score_SQL = "select * from score";
     $Select_Score_Result = mysqli_query($serverLink, $Select_Score_SQL);
     while($score = mysqli_fetch_array($Select_Score_Result)){

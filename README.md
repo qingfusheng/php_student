@@ -28,6 +28,8 @@ This is a mini student-course management system. The Mysql database has five she
 - [student]("http://php.qingfusheng.life/student/student.php")
 - [score]("htp://php.qingfusheng.life/student/score.php")
 
+## HomePage
+[HomePage]("http://php.qingfusheng.life")
 <div>
 <hr/>
 </div>

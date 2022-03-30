@@ -104,7 +104,7 @@
         </tr>
         <!--This is the Content of the table-->
 <?php
-    include "./database/database.php";
+    include_once "./database/database.php";
     $Select_Course_SQL = "select * from course";
     $Select_Course_Result = mysqli_query($serverLink, $Select_Course_SQL);
     while($course = mysqli_fetch_array($Select_Course_Result)){
