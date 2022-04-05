@@ -104,6 +104,30 @@
           </tr>
 <?php
     include_once "./database/database.php";
+    
+    $self_url = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].'?'.$_SERVER['QUERY_STRING'];
+    $the_parse = parse_url($self_url);
+    parse_str($the_parse["query"], $query_arr);
+    if($query_arr["stu"]){
+        $stu =$query_arr["stu"];
+        $Select_Score_SQL = "select * from score where student_id=".$stu;
+        $Select_Score_Result = mysqli_query($serverLink, $Select_Score_SQL);
+        while($score = mysqli_fetch_array($Select_Score_Result)){
+          echo "<tr class='tr_score'>";
+    	  echo "<td style='display:none'>".$score['score_id']."</td>";
+          $select_student_name_sql = "SELECT student_name FROM student WHERE student_id=".$score["student_id"];
+          $select_student_name_result = mysqli_query($serverLink,$select_student_name_sql);
+          $select_student_name = mysqli_fetch_array($select_student_name_result)["student_name"];
+          echo "<td>".$select_student_name."</td>";
+          $select_course_name_sql = "SELECT course_name FROM course WHERE course_id=".$score["course_id"];
+          $select_course_name_result = mysqli_query($serverLink, $select_course_name_sql);
+          $select_course_name = mysqli_fetch_array($select_course_name_result)["course_name"];
+          echo " <td>".$select_course_name."</td>";
+          echo "<td>".$score["grade"]."</td><td></td>";
+        }
+        exit();
+    }
+    
     $Select_Score_SQL = "select * from score";
     $Select_Score_Result = mysqli_query($serverLink, $Select_Score_SQL);
     while($score = mysqli_fetch_array($Select_Score_Result)){

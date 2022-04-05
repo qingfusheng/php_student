@@ -40,6 +40,9 @@
           _form.mo_class_id.value = document.getElementById("mo_add_new_entry").value;
           _form.submit();
         }
+        function get_each_score(num){
+            document.location.href = "/student/score.php?stu="+num;
+        }
     </script>
     <style type="text/css">
       table{
@@ -58,6 +61,9 @@
       .operate_button{
         width:100px;
       }
+      .get_each_score_button_h{
+          width:100px;
+      }
       .entry_th_id{
         display: none;
       }
@@ -73,7 +79,11 @@
         border:none;
       }
       ._button{
-        height:90%;
+        height:95%;
+      }
+      .get_each_score_button{
+          width:90%;
+          height:90%;
       }
       .td_left_button{
         width:48%;
@@ -101,6 +111,7 @@
             <th>学生姓名</th>
             <th>所属班级</th>
             <th class="operate_button">操作</th>
+            <th class="get_each_score_button_h">操作2</th>
           </tr>
 <?php
     include_once "./database/database.php";
@@ -115,8 +126,10 @@
       $class_name_result = mysqli_query($serverLink, $student_class_sql);
       $class_name = mysqli_fetch_array($class_name_result)["class_name"];
     	echo "<td>".$class_name."</td>";
-    	echo "<td class='operate_button'><input type='button' class='td_left_button' value='删除' onclick=\"delete_student('".$student["student_id"]."')\">";
+    	echo "<td class='operate_button'>";
+    	echo "<input type='button' class='td_left_button' value='删除' onclick=\"delete_student('".$student["student_id"]."')\">";
     	echo "<input type='button' class='modified_input td_right_button' value='修改' onclick=\"modify_student(this.parentElement.parentElement)\"></td>";
+    	echo "<td><input type='button' class='get_each_score_button' value='查看成绩' onclick=\"get_each_score(".$student["student_id"].")\"></td>";
     	echo "</tr>";
     }
 ?>
